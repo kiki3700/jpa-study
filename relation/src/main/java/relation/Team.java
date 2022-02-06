@@ -20,6 +20,7 @@ public class Team {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	public Long getId() {
 		return id;
 	}

@@ -25,8 +25,7 @@ public class Warnning {
 			member.setName("memberA");
 			member.setTeam(team);
 			em.persist(member);
-			
-			team.getMembers().add(member);
+
 			
 //			em.flush();
 //			em.clear();

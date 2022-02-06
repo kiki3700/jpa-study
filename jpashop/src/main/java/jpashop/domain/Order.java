@@ -1,6 +1,8 @@
 package jpashop.domain;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +10,9 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -16,10 +21,16 @@ public class Order {
 	@Id @GeneratedValue
 	@Column(name = "ORDER_ID")
 	private Long id;
-	@Column(name = "MEMBER_ID")
-	private Long memberId;
+	
+	@ManyToOne
+	@JoinColumn(name="MEMBER_ID")
+	private Member member;
+	
+	@OneToMany(mappedBy= "order")
+	private List<OrderItem> orderItems = new ArrayList<>();
 	
 	private LocalDateTime orderDate;
+	
 	@Enumerated(EnumType.STRING)
 	private OrderStatus status;
 	public Order() {
@@ -32,11 +43,12 @@ public class Order {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Long getMemberId() {
-		return memberId;
+	public Member getMember() {
+		return member;
 	}
-	public void setMemberId(Long memberId) {
-		this.memberId = memberId;
+	public void setMember(Member member) {
+		this.member = member;
+		member.getOrders().add(this);
 	}
 	public LocalDateTime getOrderDate() {
 		return orderDate;
@@ -50,5 +62,10 @@ public class Order {
 	public void setStatus(OrderStatus status) {
 		this.status = status;
 	}
-	
+	public void addOrderItem(OrderItem orderItem) {
+		// TODO Auto-generated method stub
+		orderItems.add(orderItem);
+		orderItem.setOrder(this);
+	}
+
 }
