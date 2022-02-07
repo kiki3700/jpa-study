@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Member {
@@ -20,6 +21,11 @@ public class Member {
 	@ManyToOne
 	@JoinColumn(name="TEAM_ID")
 	private Team team;
+	
+	@OneToOne
+	@JoinColumn(name="LOCKER_ID")
+	private Locker locker;
+	
 	public Member() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -42,6 +48,12 @@ public class Member {
 	public void setTeam(Team team) {
 		this.team = team;
 		team.getMembers().add(this);
+	}
+	public Locker getLocker() {
+		return locker;
+	}
+	public void setLocker(Locker locker) {
+		this.locker = locker;
 	}
 	
 	

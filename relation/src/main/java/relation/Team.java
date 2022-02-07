@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -13,6 +14,10 @@ public class Team {
 	@Id @GeneratedValue
 	private Long id;
 	private String name;
+
+//	@OneToMany
+//	@JoinColumn(name = "TEAM_ID")
+//	private List<Member> members = new ArrayList<>();
 	
 	@OneToMany(mappedBy="team")
 	private List<Member> members = new ArrayList<>();
