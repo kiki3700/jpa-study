@@ -24,9 +24,6 @@ public class Member {
 	@JoinColumn(name="TEAM_ID")
 	private Team team;
 	
-	@OneToOne
-	@JoinColumn(name="LOCKER_ID")
-	private Locker locker;
 	
 	private String createBy;
 	private LocalDateTime createdDate;
@@ -56,12 +53,7 @@ public class Member {
 		this.team = team;
 		team.getMembers().add(this);
 	}
-	public Locker getLocker() {
-		return locker;
-	}
-	public void setLocker(Locker locker) {
-		this.locker = locker;
-	}
+
 	
 	
 }
