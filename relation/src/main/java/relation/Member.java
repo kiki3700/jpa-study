@@ -1,5 +1,7 @@
 package relation;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,6 +27,11 @@ public class Member {
 	@OneToOne
 	@JoinColumn(name="LOCKER_ID")
 	private Locker locker;
+	
+	private String createBy;
+	private LocalDateTime createdDate;
+	private String modifiedBy;
+	private LocalDateTime modifiedDate;
 	
 	public Member() {
 		super();
