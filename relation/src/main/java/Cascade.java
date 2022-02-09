@@ -1,30 +1,26 @@
-package relation;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-public class AdvanceMapping {
+import relation.Child;
+import relation.Parent;
+
+public class Cascade {
 	public static void main(String[] args) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx =em.getTransaction();
 		tx.begin();
 		try {
-			Movie movie = new Movie();
-			movie.setDirector("AAA");
-			movie.setActor("bbbb");
-			movie.setPrice(1000);
-			movie.setName("바랍과 함께 사라지다");
+			Parent parent = new Parent();
+			Child c1 = new Child();
+			Child c2 = new Child();	
+			parent.addChild(c1);
+			parent.addChild(c2);
 			
-			em.persist(movie);
+			em.persist(parent);
 			
-			em.flush();
-			em.clear();
-			
-			Movie findMovie = em.find(Movie.class, movie.getId());
-			System.out.println("movie name "+ findMovie.getName());
 			tx.commit();
 		}catch(Exception e) {
 			tx.rollback();
