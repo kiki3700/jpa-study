@@ -1,15 +1,13 @@
 package domain;
 
-import java.time.LocalDateTime;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Member {
@@ -20,10 +18,26 @@ public class Member {
 	private String username;
 	private int age;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="TEAM_ID")
 	private Team team;
+	
+	@Enumerated(EnumType.STRING)
+	public MemberType getMemberType() {
+		return memberType;
+	}
 
+	public void setMemberType(MemberType memberType) {
+		this.memberType = memberType;
+	}
+
+	private MemberType memberType;
+	
+	public void changeTeam(Team team) {
+		this.team = team;
+		team.getMembers().add(this);
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -54,5 +68,11 @@ public class Member {
 
 	public void setTeam(Team team) {
 		this.team = team;
+	}
+
+	@Override
+	public String toString() {
+		return "Member [id=" + id + ", username=" + username + ", age=" + age + "]";
 	}	
+	
 }

@@ -56,9 +56,12 @@ public class Projection {
 			oArr = resultByObject.get(0);
 			System.out.println("o[0] "+ oArr[0]);
 			System.out.println("o[1] "+ oArr[1]);
+			
 			//3. new 명령어로 조회
 			List<MemberDto> resultByNew = em.createQuery("select new domain.MemberDto(m.username, m.age) from Member m",MemberDto.class)
 					.getResultList();
+			MemberDto meberDto = resultByNew.get(0);
+			
 			tx.commit();
 		}catch(Exception e) {
 			e.printStackTrace();
